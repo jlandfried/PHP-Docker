@@ -5,7 +5,7 @@ These Docker files are for building various PHP related docker images for use wi
 
 They all offer the following tools:
 
-* PHP (with MySQL support, GD, and Curl)
+* PHP (with MySQL support, GD, Curl, and an OpCode cache)
 * Apache, configured to serve /var/www with an exposed port on 80
 * Composer
 * Drush
