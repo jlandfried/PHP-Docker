@@ -17,7 +17,7 @@ RUN ln -sf /dev/stderr /var/log/apache2/error.log
 
 # Install CLI tools:
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/bin/composer
-RUN mkdir /usr/share/drush && cd /usr/share/drush && composer require drush/drush --prefer-dist && ln -s /usr/share/drush/vendor/bin/drush /usr/bin/drush
+RUN mkdir /usr/share/drush && cd /usr/share/drush && composer require drush/drush --prefer-dist && ln -s /usr/share/drush/vendor/bin/drush /usr/bin/drush && rm -r /root/.composer/cache
 
 # Configure:
 ADD apache-vhost.conf /etc/apache2/sites-available/default

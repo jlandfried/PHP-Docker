@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+if [ -n "$TZ" ]; then
+    # Configure PHP to use $TZ variable.
+    sed -i "/date\.timezone =/c\date.timezone = $TZ" /etc/php5/cli/php.ini /etc/php5/apache2/php.ini
+fi
+
+# Apache gets grumpy about PID files pre-existing
+rm -f /var/run/apache2/apache2.pid
+
+source /etc/apache2/envvars && exec apache2 -DFOREGROUND
