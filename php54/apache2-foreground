@@ -19,4 +19,9 @@ if [ -n "$APACHE_RUN_UID" ]; then
     fi
 fi
 
+# Allow a script to run on startup.
+if [ -x "/on-docker-boot" ]; then
+  /on-docker-boot
+fi
+
 exec apache2 -DFOREGROUND
