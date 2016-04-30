@@ -5,7 +5,7 @@ FROM debian:jessie
 RUN apt-get update && apt-get install -y --force-yes curl git mysql-client && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install php
-RUN apt-get update && apt-get install -y --force-yes apache2 php5 php5-curl php5-mysqlnd php5-gd && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get update && apt-get install -y --force-yes apache2 php5 php5-curl php5-mysqlnd php5-gd php5-sqlite php5-mcrypt && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN a2enmod rewrite && a2enmod php5
 
 # Redirect Apache logging to stdout and stderr for capture using

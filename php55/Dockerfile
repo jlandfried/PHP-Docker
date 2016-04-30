@@ -11,7 +11,7 @@ RUN curl http://www.dotdeb.org/dotdeb.gpg | apt-key add - \
     && echo "deb http://packages.dotdeb.org wheezy-php55 all\ndeb-src http://packages.dotdeb.org wheezy-php55 all" > /etc/apt/sources.list.d/dotdeb-php55.list
 
 # Install php:
-RUN apt-get update && apt-get install -y --force-yes apache2 php5 php5-curl php5-mysqlnd php5-gd && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get update && apt-get install -y --force-yes apache2 php5 php5-curl php5-mysqlnd php5-gd php5-sqlite php5-mcrypt && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN a2enmod rewrite && a2enmod php5
 
 # Redirect Apache loggingg to stdout and stderr for capture using

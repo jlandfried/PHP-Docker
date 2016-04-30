@@ -9,7 +9,7 @@ RUN curl http://www.dotdeb.org/dotdeb.gpg | apt-key add - \
     && echo "deb http://packages.dotdeb.org jessie all\ndeb-src http://packages.dotdeb.org jessie all" > /etc/apt/sources.list.d/dotdeb-php55.list
 
 # Install php
-RUN apt-get update && apt-get install -y --force-yes apache2 php7.0 php7.0-curl php7.0-mysql php7.0-gd && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get update && apt-get install -y --force-yes apache2 php7.0 php7.0-curl php7.0-mysql php7.0-gd php7.0-sqlite3 php7.0-mcrypt && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN a2enmod rewrite && a2enmod php7.0
 
 # Redirect Apache logging to stdout and stderr for capture using
