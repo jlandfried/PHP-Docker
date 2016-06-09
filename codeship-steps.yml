@@ -1,8 +1,8 @@
 - type: parallel
   services:
     - php54
+    - php54_dev
     - php55
-    - php56
-    - php70
+    - php55_dev
   steps:
-    - command: php -i
+    - command: ./test.sh

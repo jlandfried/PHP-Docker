@@ -4,11 +4,23 @@ php54:
     image: lastcallmedia/php
     dockerfile_path: Dockerfile
 
+php54_dev:
+  build:
+    path: php54
+    image: lastcallmedia/php
+    dockerfile_path: Dockerfile.dev
+
 php55:
   build:
     path: php55
     image: lastcallmedia/php
     dockerfile_path: Dockerfile
+
+php55_dev:
+  build:
+    path: php55
+    image: lastcallmedia/php
+    dockerfile_path: Dockerfile.dev
 
 php56:
   build:
