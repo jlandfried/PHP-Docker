@@ -41,4 +41,4 @@ EXPOSE 80
 CMD ["apache2-foreground"]
 # /common-php56
 
-COPY test.sh /test.sh
+COPY test-dev.sh /test.sh
