@@ -1,0 +1,11 @@
+- type: parallel
+  services:
+    - php54
+    - php55
+    - php56
+    - php70
+  steps:
+    - command: php -i
+    - command: php -i
+    - command: php -i
+    - command: php -i
