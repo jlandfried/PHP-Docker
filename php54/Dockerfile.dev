@@ -30,8 +30,7 @@ ENV APACHE_LOCK_DIR /var/lock/apache2
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/bin/composer \
   && mkdir /usr/share/composer \
   && cd /usr/share/composer \
-  && composer init --no-interaction && composer config bin-dir /usr/local/bin \
-  && composer require drush/drush --prefer-dist
+  && composer init --no-interaction && composer config bin-dir /usr/local/bin
 
 # Configure:
 ADD apache-vhost.conf /etc/apache2/sites-available/default
@@ -43,4 +42,5 @@ EXPOSE 80
 CMD ["apache2-foreground"]
 # /common-php54
 
-COPY test.sh /test.sh
+COPY test-dev.sh /test.sh
+
