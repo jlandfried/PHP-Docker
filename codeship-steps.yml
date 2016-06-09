@@ -6,6 +6,3 @@
     - php70
   steps:
     - command: php -i
-    - command: php -i
-    - command: php -i
-    - command: php -i
