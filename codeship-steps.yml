@@ -4,5 +4,9 @@
     - php54_dev
     - php55
     - php55_dev
+    - php56
+    - php56_dev
+    - php70
+    - php70_dev
   steps:
     - command: ./test.sh

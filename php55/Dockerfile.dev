@@ -20,9 +20,9 @@ RUN apt-get update \
   && apt-get install -y --force-yes apache2 php5 php5-curl php5-mysqlnd php5-gd php5-sqlite php5-mcrypt \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-
+# Configure Apache:
 RUN a2enmod rewrite php5 \
-  # Redirect Apache loggingg to stdout and stderr for capture using
+  # Redirect Apache logging to stdout and stderr for capture using
   # docker mechanisms.
   && ln -sf /dev/stdout /var/log/apache2/access.log \
   && ln -sf /dev/stderr /var/log/apache2/error.log \
@@ -33,7 +33,8 @@ RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/bi
   && mkdir /usr/share/composer \
   && cd /usr/share/composer \
   && composer init --no-interaction && composer config bin-dir /usr/local/bin \
-  && composer require drush/drush --prefer-dist
+  && composer require drush/drush --prefer-dist \
+  && rm -r /root/.composer/cache
 
 # Configure:
 ADD apache-vhost.conf /etc/apache2/sites-enabled/000-default
@@ -45,4 +46,4 @@ EXPOSE 80
 CMD ["apache2-foreground"]
 # /common-php55
 
-COPY test.sh /test.sh
+COPY test-dev.sh /test.sh
