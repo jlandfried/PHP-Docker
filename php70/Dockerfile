@@ -14,6 +14,7 @@ RUN apt-get update \
   # Install dotdeb repo:
   && curl http://www.dotdeb.org/dotdeb.gpg | apt-key add - \
   && echo "deb http://packages.dotdeb.org jessie all\ndeb-src http://packages.dotdeb.org jessie all" > /etc/apt/sources.list.d/dotdeb-php55.list \
+  && apt-get update \
   # Install php
   && apt-get install -y --force-yes apache2 php7.0 php7.0-curl php7.0-mysql php7.0-gd php7.0-sqlite3 php7.0-mcrypt \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
