@@ -32,3 +32,8 @@ php70:
   build:
     path: php70
     dockerfile_path: Dockerfile
+
+php70_dev:
+  build:
+    path: php70
+    dockerfile_path: Dockerfile
