@@ -1,28 +1,62 @@
 
-FROM debian:jessie
+FROM php:5.6-apache
 
 # common-php56
+ENV DEBIAN_FRONTEND noninteractive
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
-ENV APACHE_PID_FILE /var/run/apache2.pid
-ENV APACHE_LOG_DIR /var/log/apache2
-ENV APACHE_LOCK_DIR /var/lock/apache2
-ENV PKG_PHP 5
 
-RUN apt-get update \
-  # Install base deps:
-  && apt-get install -y --force-yes bzip2 curl git mysql-client \
-  # Install php
-  && apt-get install -y --force-yes apache2 php5 php5-curl php5-mysqlnd php5-gd php5-sqlite php5-mcrypt \
-  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      # for bz2
+      bzip2 libbz2-dev \
+      # for ftp
+      libssl-dev \
+      # for gd
+      libfreetype6-dev libjpeg62-turbo-dev libpng12-dev \
+      # for intl
+      libicu-dev \
+      # for dom
+      libxml2-dev \
+      # for ldap
+      libldap2-dev \
+      # for mcrypt
+      libmcrypt-dev \
+      # for mysql
+      mysql-client \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Configure Apache
-RUN a2enmod rewrite php5 \
-  # Redirect Apache logging to stdout and stderr for capture using
-  # docker mechanisms.
-  && ln -sf /dev/stdout /var/log/apache2/access.log \
-  && ln -sf /dev/stderr /var/log/apache2/error.log \
-  && echo "opcache.memory_consumption = 128" >> /etc/php5/mods-available/opcache.ini
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu \
+    && docker-php-ext-install -j$(nproc) \
+      bcmath \
+      bz2 \
+      calendar \
+      exif \
+      ftp \
+      gd \
+      gettext \
+      intl \
+      ldap \
+      mcrypt \
+      mysql \
+      mysqli \
+      opcache \
+      pcntl \
+      pdo_mysql \
+      shmop \
+      soap \
+      sockets \
+      sysvmsg \
+      sysvsem \
+      sysvshm \
+      zip
+
+# Configure Apache:
+RUN a2enmod rewrite \
+  && sed -i "/User www-data/c\User \$\{APACHE_RUN_USER\}" /etc/apache2/apache2.conf \
+  && sed -i "/Group www-data/c\Group \$\{APACHE_RUN_GROUP\}" /etc/apache2/apache2.conf \
+  # Preemptively add a user 1000, for use with $APACHE_RUN_USER on osx
+  && adduser --uid 1000 --gecos 'My OSX User' --disabled-password osxuser
 
 # Install CLI tools:
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/bin/composer \
@@ -32,22 +66,14 @@ RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/bi
   && composer require drush/drush --prefer-dist \
   && rm -r /root/.composer/cache
 
-# Configure:
-ADD apache-vhost.conf /etc/apache2/sites-available/000-default.conf
-ADD apache2-foreground /usr/local/bin/
-
-WORKDIR /var/www
-EXPOSE 80
-
-CMD ["apache2-foreground"]
+ADD apache2-foreground /usr/local/bin/apache2-foreground-enhanced
+CMD ["apache2-foreground-enhanced"]
 # /common-php56
 
 # Install development tools:
 ENV PATH=/usr/share/node:$PATH
 ENV NVM_DIR=$HOME/.nvm
 RUN apt-get update \
-  # Xdebug
-  && apt-get install php5-xdebug \
   # Nodejs
   && curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh | bash \
   && . $NVM_DIR/nvm.sh \
