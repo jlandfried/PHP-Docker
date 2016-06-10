@@ -46,20 +46,20 @@ EXPOSE 80
 CMD ["apache2-foreground"]
 # /common-php54
 
-# Install nodejs and add it to the path.
+# Install development tools:
 ENV PATH=/usr/share/node:$PATH
 ENV NVM_DIR=$HOME/.nvm
 RUN apt-get update \
-  # Install libfontconfig for phantomjs
-  && apt-get install -y libfontconfig \
+  # Xdebug
+  && apt-get install php5-xdebug \
+  # Nodejs
   && curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh | bash \
   && . $NVM_DIR/nvm.sh \
   && nvm install node \
-  # Pre-install gulp and phantomjs.
-  && npm install -g gulp phantomjs-prebuilt \
-  # Static link the default version.  Without this, node is not on the path
-  # except inside a login shell.
   && ln -s $NVM_DIR/versions/node/`nvm version node`/bin /usr/share/node \
+  # gulp and phantomjs
+  && apt-get install -y libfontconfig \
+  && npm install -g gulp phantomjs-prebuilt \
   && npm cache clean \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

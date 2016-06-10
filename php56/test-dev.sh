@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-php -i
+php --version
 composer --version
 drush --version
 node --version
