@@ -49,14 +49,19 @@ CMD ["apache2-foreground"]
 # Install nodejs and add it to the path.
 ENV PATH=/usr/share/node:$PATH
 ENV NVM_DIR=$HOME/.nvm
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh | bash \
+RUN apt-get update \
+  # Install libfontconfig for phantomjs
+  && apt-get install -y libfontconfig \
+  && curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh | bash \
   && . $NVM_DIR/nvm.sh \
   && nvm install node \
+  # Pre-install gulp and phantomjs.
   && npm install -g gulp phantomjs-prebuilt \
   # Static link the default version.  Without this, node is not on the path
   # except inside a login shell.
   && ln -s $NVM_DIR/versions/node/`nvm version node`/bin /usr/share/node \
   && npm cache clean \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 
 COPY test-dev.sh /test.sh
