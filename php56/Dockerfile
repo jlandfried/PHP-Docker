@@ -10,7 +10,7 @@ ENV APACHE_LOCK_DIR /var/lock/apache2
 
 RUN apt-get update \
   # Install base deps:
-  && apt-get install -y --force-yes curl git mysql-client \
+  && apt-get install -y --force-yes bzip2 curl git mysql-client \
   # Install php
   && apt-get install -y --force-yes apache2 php5 php5-curl php5-mysqlnd php5-gd php5-sqlite php5-mcrypt \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

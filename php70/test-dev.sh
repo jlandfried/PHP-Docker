@@ -3,3 +3,4 @@
 php -i
 composer --version
 drush --version
+node --version

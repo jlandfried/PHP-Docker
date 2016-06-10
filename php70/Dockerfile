@@ -10,7 +10,7 @@ ENV APACHE_LOCK_DIR /var/lock/apache2
 
 RUN apt-get update \
   # Install base deps:
-  && apt-get install -y --force-yes curl git mysql-client \
+  && apt-get install -y --force-yes bzip2 curl git mysql-client \
   # Install dotdeb repo:
   && curl http://www.dotdeb.org/dotdeb.gpg | apt-key add - \
   && echo "deb http://packages.dotdeb.org jessie all\ndeb-src http://packages.dotdeb.org jessie all" > /etc/apt/sources.list.d/dotdeb-php55.list \

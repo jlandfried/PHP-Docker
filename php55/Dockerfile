@@ -9,9 +9,11 @@ ENV APACHE_PID_FILE /var/run/apache2.pid
 ENV APACHE_LOG_DIR /var/log/apache2
 ENV APACHE_LOCK_DIR /var/lock/apache2
 
-RUN apt-get update \
+RUN echo "deb http://http.debian.net/debian wheezy-backports main" >> /etc/apt/sources.list \
+  && apt-get update \
   # Install base deps:
-  && apt-get install -y --force-yes curl git mysql-client \
+  && apt-get install -y -t wheezy-backports git \
+  && apt-get install -y --force-yes bzip2 curl mysql-client \
   # Install dotdeb repo:
   && curl http://www.dotdeb.org/dotdeb.gpg | apt-key add - \
   && echo "deb http://packages.dotdeb.org wheezy-php55 all\ndeb-src http://packages.dotdeb.org wheezy-php55 all" > /etc/apt/sources.list.d/dotdeb-php55.list \

@@ -9,9 +9,12 @@ ENV APACHE_PID_FILE /var/run/apache2.pid
 ENV APACHE_LOG_DIR /var/log/apache2
 ENV APACHE_LOCK_DIR /var/lock/apache2
 
-RUN apt-get update \
+# Add backports for git > 1.7
+RUN echo "deb http://http.debian.net/debian wheezy-backports main" >> /etc/apt/sources.list \
   # Install base deps
-  && apt-get install -y --force-yes curl git mysql-client \
+  && apt-get update \
+  && apt-get install -y -t wheezy-backports git \
+  && apt-get install -y --force-yes bzip2 curl mysql-client \
   # Install php:
   && apt-get install -y --force-yes apache2 php5 php5-curl php5-mysqlnd php5-gd php-apc php5-sqlite php5-mcrypt \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
