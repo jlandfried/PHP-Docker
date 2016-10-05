@@ -51,7 +51,7 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
       sysvsem \
       sysvshm \
       zip \
-    && pecl install redis \
+    && pecl install redis-2.2.8 \
     && docker-php-ext-enable redis
 
 # Configure Apache:
