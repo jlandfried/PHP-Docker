@@ -25,8 +25,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       mysql-client \
       # for git
       git \
-      # for memcache
-      libmemcached-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
@@ -52,9 +50,7 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
       sysvmsg \
       sysvsem \
       sysvshm \
-      zip \
-    && pecl install memcache \
-    && docker-php-ext-enable memcache
+      zip
 
 # Configure Apache:
 RUN a2enmod rewrite \
