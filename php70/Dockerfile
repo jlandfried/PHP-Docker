@@ -55,7 +55,7 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
     && docker-php-ext-enable redis
 
 # Configure Apache:
-RUN a2enmod rewrite \
+RUN a2enmod rewrite headers expires \
   && sed -i "/User www-data/c\User \$\{APACHE_RUN_USER\}" /etc/apache2/apache2.conf \
   && sed -i "/Group www-data/c\Group \$\{APACHE_RUN_GROUP\}" /etc/apache2/apache2.conf \
   # Preemptively add a user 1000, for use with $APACHE_RUN_USER on osx
