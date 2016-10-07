@@ -51,8 +51,8 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
       sysvsem \
       sysvshm \
       zip \
-    && pecl install redis \
-    && docker-php-ext-enable redis
+    && pecl install redis apcu \
+    && docker-php-ext-enable redis apcu
 
 # Configure Apache:
 RUN a2enmod rewrite headers expires \
