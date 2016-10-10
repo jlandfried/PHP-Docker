@@ -52,7 +52,9 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
       sysvshm \
       zip \
     && pecl install redis apcu \
-    && docker-php-ext-enable redis apcu
+    && docker-php-ext-enable redis apcu \
+    # Set a reasonable max upload size
+    && printf "upload_max_filesize = 128M\npost_max_size = 128M" > $PHP_INI_DIR/conf.d/00-max_filesize.ini
 
 # Configure Apache:
 RUN a2enmod rewrite headers expires \
