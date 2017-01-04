@@ -5,6 +5,7 @@ FROM php:5.5-apache
 ENV DEBIAN_FRONTEND noninteractive
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
+ENV APACHE_REQUEST_WORKERS 150
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
       # for bz2
@@ -72,7 +73,8 @@ RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/bi
   && composer require drush/drush --prefer-dist \
   && rm -r /root/.composer/cache
 
-ADD apache2-foreground /usr/local/bin/apache2-foreground-enhanced
+ADD mpm_prefork.conf /etc/apache2/mods-enabled/mpm_prefork.conf
+ADD scripts/* /usr/local/bin/
 CMD ["apache2-foreground-enhanced"]
 # /common-php55
 
