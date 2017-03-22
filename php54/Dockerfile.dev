@@ -3,6 +3,7 @@ FROM php:5.4-apache
 
 # common-php54
 ENV DEBIAN_FRONTEND noninteractive
+ENV APACHE_DOCROOT /var/www/html
 ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
 ENV APACHE_REQUEST_WORKERS 150
@@ -61,6 +62,7 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
 RUN a2enmod rewrite headers expires \
   && sed -i "/User www-data/c\User \$\{APACHE_RUN_USER\}" /etc/apache2/apache2.conf \
   && sed -i "/Group www-data/c\Group \$\{APACHE_RUN_GROUP\}" /etc/apache2/apache2.conf \
+  && sed -i "/DocumentRoot \/var\/www\/html/c\DocumentRoot \$\{APACHE_DOCROOT\}" /etc/apache2/apache2.conf \
   # Preemptively add a user 1000, for use with $APACHE_RUN_USER on osx
   && adduser --uid 1000 --gecos 'My OSX User' --disabled-password osxuser
 

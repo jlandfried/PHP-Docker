@@ -12,6 +12,7 @@ They all offer the following tools:
 
 Environment Variables
 ---------------------
+APACHE_DOCROOT (/var/www/html): The path to the docroot. To avoid configuration issues, keep your docroot below /var/www. If you change this, you will also want to change the working directory using the -w flag so when you use exec, you drop into the correct directory.
 APACHE_RUN_USER (www-data): The user to run Apache as.
 APACHE_RUN_GROUP (www-data): The group to run Apache as.
 APACHE_REQUEST_WORKERS (150): The MaxRequestWorkers setting.
