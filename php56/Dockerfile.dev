@@ -83,16 +83,20 @@ CMD ["apache2-foreground-enhanced"]
 # Install development tools:
 ENV PATH=/usr/share/node:$PATH
 ENV NVM_DIR=$HOME/.nvm
+ENV PHANTOMJS_VERSION 2.1.1
 RUN apt-get update \
   # Nodejs
   && curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh | bash \
   && . $NVM_DIR/nvm.sh \
-  && nvm install node \
-  && ln -s $NVM_DIR/versions/node/`nvm version node`/bin /usr/share/node \
-  # gulp and phantomjs
+  && nvm install stable \
+  # Install Gulp
+  && npm install -g gulp \
+  # Install PhantomJS
   && apt-get install -y libfontconfig \
-  && npm install -g gulp phantomjs-prebuilt \
-  && npm cache clean \
+  && curl -sL "https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-${PHANTOMJS_VERSION}-linux-x86_64.tar.bz2" | tar jx \
+	&& mv phantomjs-${PHANTOMJS_VERSION}-linux-x86_64 /usr/local/bin/phantomjs \
+  # Clean up the leftovers
+	&& npm cache clean --force \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY test-dev.sh /test.sh
