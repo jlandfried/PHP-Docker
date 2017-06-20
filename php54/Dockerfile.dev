@@ -87,7 +87,7 @@ CMD ["apache2-foreground-enhanced"]
 ENV PATH=/usr/share/node:$PATH
 ENV NVM_DIR=$HOME/.nvm
 ENV PHANTOMJS_VERSION 2.1.1
-RUN pecl install xdebug \
+RUN pecl install xdebug-2.4.1 \
   && docker-php-ext-enable xdebug \
   && echo "xdebug.default_enable=0\nxdebug.coverage_enable=0" > $PHP_INI_DIR/conf.d/xdebug.ini \
   # Nodejs
