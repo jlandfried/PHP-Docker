@@ -87,7 +87,9 @@ CMD ["apache2-foreground-enhanced"]
 ENV PATH=/usr/share/node:$PATH
 ENV NVM_DIR=$HOME/.nvm
 ENV PHANTOMJS_VERSION 2.1.1
-RUN apt-get update \
+RUN pecl install xdebug \
+  && docker-php-ext-enable xdebug \
+  && echo "xdebug.default_enable=0\nxdebug.coverage_enable=0" > $PHP_INI_DIR/conf.d/xdebug.ini \
   # Nodejs
   && curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh | bash \
   && . $NVM_DIR/nvm.sh \
@@ -95,6 +97,7 @@ RUN apt-get update \
   # Install Gulp
   && npm install -g gulp \
   # Install PhantomJS
+  && apt-get update \
   && apt-get install -y libfontconfig \
   && curl -sL "https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-${PHANTOMJS_VERSION}-linux-x86_64.tar.bz2" | tar jx \
 	&& mv phantomjs-${PHANTOMJS_VERSION}-linux-x86_64 /usr/local/bin/phantomjs \
