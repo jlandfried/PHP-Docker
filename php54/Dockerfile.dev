@@ -84,8 +84,8 @@ CMD ["apache2-foreground-enhanced"]
 # /common-php54
 
 # Install development tools:
-ENV PATH=/usr/share/node:$PATH
-ENV NVM_DIR=$HOME/.nvm
+ENV NVM_DIR=/usr/local/nvm
+ENV PATH=/usr/local/nvm:$PATH
 ENV PHANTOMJS_VERSION 2.1.1
 RUN pecl install xdebug-2.4.1 \
   && docker-php-ext-enable xdebug \
@@ -94,6 +94,7 @@ RUN pecl install xdebug-2.4.1 \
   && curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh | bash \
   && . $NVM_DIR/nvm.sh \
   && nvm install stable \
+  && nvm use stable \
   # Install Gulp
   && npm install -g gulp \
   # Install PhantomJS
