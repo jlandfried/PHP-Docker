@@ -87,7 +87,7 @@ CMD ["apache2-foreground-enhanced"]
 # We install nvm, but also add node to $PATH directly
 # so we can use it through /bin/sh.
 ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION v8.1.2
+ENV NODE_VERSION v6.11.0
 ENV NODE_PATH $NVM_DIR/versions/node/$NODE_VERSION/lib/node_modules
 ENV PATH $NVM_DIR/versions/node/$NODE_VERSION/bin:$PATH
 ENV PHANTOMJS_VERSION 2.1.1
