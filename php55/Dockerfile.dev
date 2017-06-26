@@ -84,9 +84,10 @@ ADD scripts/* /usr/local/bin/
 CMD ["apache2-foreground-enhanced"]
 # /common-php55
 
-# Install development tools:
+# Install development tools.
+# We install nvm, but also symlink it so it's available through /bin/sh.
 ENV NVM_DIR=/usr/local/nvm
-ENV PATH=/usr/local/nvm:$PATH
+ENV PATH=/usr/local/nvm:/usr/share/node:$PATH
 ENV PHANTOMJS_VERSION 2.1.1
 RUN pecl install xdebug \
   && docker-php-ext-enable xdebug \
@@ -96,6 +97,7 @@ RUN pecl install xdebug \
   && . $NVM_DIR/nvm.sh \
   && nvm install stable \
   && nvm use stable \
+  && ln -s $NVM_DIR/versions/node/`nvm version stable`/bin /usr/share/node \
   # Install Gulp
   && npm install -g gulp \
   # Install PhantomJS
