@@ -104,7 +104,8 @@ RUN pecl install xdebug \
   && npm install -g gulp \
   # Install PhantomJS
   && apt-get update \
-  && apt-get install -y libfontconfig \
+  # Install fonts and libtdl (for mounted docker binary usage)
+  && apt-get install -y libfontconfig libltdl7 \
   && curl -sL "https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-${PHANTOMJS_VERSION}-linux-x86_64.tar.bz2" | tar jx \
 	&& mv phantomjs-${PHANTOMJS_VERSION}-linux-x86_64 /usr/local/bin/phantomjs \
   # Clean up the leftovers
