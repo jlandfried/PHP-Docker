@@ -20,8 +20,10 @@ TZ (none): The Timezone to use for PHP.
 
 Debugging
 ---------
-The *-dev containers are intended for use in development environments only.  They include several extra tools that are not appropriate for production sites.  To enable xdebug, mount an .ini file as `/usr/local/etc/php/conf.d/xdebug.ini`
-Recommended configuration:
+The *-dev containers are intended for use in development environments only.  They include several extra tools that are not appropriate for production sites.
+
+### Xdebug
+To enable xdebug, mount an .ini file as `/usr/local/etc/php/conf.d/xdebug.ini`.  Recommended configuration:
 
 ```ini
 xdebug.remote_enable=on
@@ -29,8 +31,10 @@ xdebug.remote_autostart=off
 ; Replace with the actual public IP address of your Docker host:
 xdebug.remote_host=X.X.X.X
 ```
-
 Using this configuration, XDebug will initiate a connection back to the Docker host on port 9000 anytime you visit a page with an `XDEBUG_SESSION_START` GET parameter.  For more information, see the [XDebug documentation](https://xdebug.org/docs/remote#starting).
+
+### Blackfire
+The Blackfire PHP probe is installed on all of the -dev boxes.  It is configured to connect to a Blackfire `agent` container running alongside at blackfire:8707. See the [Blackfire documentation](https://blackfire.io/docs/integrations/docker) for more information on setting this up.
 
 Performance tuning
 ------------------
