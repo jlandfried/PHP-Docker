@@ -95,8 +95,8 @@ ENV PHANTOMJS_VERSION 2.1.1
 RUN pecl install xdebug-2.4.1 \
   && docker-php-ext-enable xdebug \
   && echo "xdebug.default_enable=0\nxdebug.coverage_enable=0" > $PHP_INI_DIR/conf.d/xdebug.ini \
-  # Nodejs
-  && curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash \
+  # Nodejs, installed globally via nvm for all bash users.
+  && curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | PROFILE=/etc/bash.bashrc bash \
   && . $NVM_DIR/nvm.sh \
   && nvm install $NODE_VERSION \
   && npm install -g yarn \
