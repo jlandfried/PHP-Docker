@@ -76,7 +76,9 @@ RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/bi
   && cd /usr/share/composer \
   && composer init --no-interaction && composer config bin-dir /usr/local/bin \
   && composer require drush/drush --prefer-dist \
-  && rm -r /root/.composer/cache
+  && rm -r /root/.composer/cache \
+  && curl -L https://github.com/jwilder/dockerize/releases/download/v0.6.0/dockerize-linux-amd64-v0.6.0.tar.gz | tar -C /usr/local/bin -xzv \
+  && chmod +x /usr/local/bin/dockerize
 
 ADD mpm_prefork.conf /etc/apache2/mods-enabled/mpm_prefork.conf
 ADD scripts/* /usr/local/bin/
