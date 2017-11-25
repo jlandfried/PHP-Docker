@@ -27,6 +27,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       mysql-client \
       # for git
       git \
+      # for ssh client only
+      openssh-client \
       # For image optimization
       jpegoptim \
       optipng \
