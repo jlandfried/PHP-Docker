@@ -9,13 +9,14 @@ ENV APACHE_RUN_GROUP www-data
 ENV APACHE_REQUEST_WORKERS 150
 ENV PATH=/var/www/vendor/bin:$PATH
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN echo "deb http://ftp.debian.org/debian jessie-backports main" >> /etc/apt/sources.list \
+  && apt-get update && apt-get install -y --no-install-recommends \
       # for bz2
       bzip2 libbz2-dev \
       # for ftp
       libssl-dev \
       # for gd
-      libfreetype6-dev libjpeg62-turbo-dev libpng12-dev \
+      libfreetype6-dev libjpeg62-turbo-dev libpng-dev \
       # for intl
       libicu-dev \
       # for dom
@@ -26,14 +27,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       libmcrypt-dev \
       # for mysql
       mysql-client \
-      # for git
-      git \
       # for ssh client only
       openssh-client \
       # For image optimization
       jpegoptim \
       optipng \
       pngquant \
+    # We need git >= 2.11 - see https://github.com/cweagans/composer-patches/issues/174.
+    && apt-get -t jessie-backports install -y git \
     && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
