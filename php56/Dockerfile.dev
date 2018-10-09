@@ -100,7 +100,7 @@ ENV NODE_PATH $NVM_DIR/versions/node/$NODE_VERSION/lib/node_modules
 ENV PATH $NVM_DIR/versions/node/$NODE_VERSION/bin:$PATH
 ENV PHANTOMJS_VERSION 2.1.1
 
-RUN pecl install xdebug \
+RUN pecl install xdebug-2.5.5 \
   && docker-php-ext-enable xdebug \
   && echo "xdebug.default_enable=0\nxdebug.coverage_enable=0" > $PHP_INI_DIR/conf.d/xdebug.ini \
   # Nodejs, installed globally via nvm for all bash users.
