@@ -134,8 +134,6 @@ RUN pecl install xdebug-2.5.5 \
   && rm -r /root/.composer/cache \
   # Clean up the leftovers
 	&& npm cache clean --force \
-  # Install compass for legacy sites
-  && apt-get install -y ruby-compass \
   && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY test-dev.sh /test.sh
