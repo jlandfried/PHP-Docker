@@ -59,3 +59,15 @@ services:
     build:
       context: ./php71
       dockerfile: Dockerfile.dev
+
+  php72:
+      image: lastcallmedia/php:7.2
+      build:
+        context: ./php72
+        dockerfile: Dockerfile
+
+  php72_dev:
+    image: lastcallmedia/php:7.2-dev
+    build:
+      context: ./php72
+      dockerfile: Dockerfile.dev
