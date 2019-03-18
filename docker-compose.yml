@@ -71,3 +71,15 @@ services:
     build:
       context: ./php72
       dockerfile: Dockerfile.dev
+
+  php73:
+      image: lastcallmedia/php:7.3
+      build:
+        context: ./php73
+        dockerfile: Dockerfile
+
+  php73_dev:
+    image: lastcallmedia/php:7.3-dev
+    build:
+      context: ./php73
+      dockerfile: Dockerfile.dev
