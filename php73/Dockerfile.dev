@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
       # for ldap
       libldap2-dev \
       # for mysql
-      mysql-client \
+      mariadb-client \
       # for ssh client only
       openssh-client \
       # For image optimization
