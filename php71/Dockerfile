@@ -8,6 +8,7 @@ ENV APACHE_RUN_USER www-data
 ENV APACHE_RUN_GROUP www-data
 ENV APACHE_REQUEST_WORKERS 150
 ENV PATH=/var/www/vendor/bin:$PATH
+ENV COMPOSER_MEMORY_LIMIT "-1"
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
       # for bz2
@@ -65,8 +66,7 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
     && pecl install redis apcu \
     && docker-php-ext-enable redis apcu \
     # Set a reasonable max upload size
-    && printf "upload_max_filesize = 128M\npost_max_size = 128M" > $PHP_INI_DIR/conf.d/00-max_filesize.ini \
-    && echo "memory_limit=-1" > $PHP_INI_DIR/conf.d/00-memory-limit.ini
+    && printf "upload_max_filesize = 128M\npost_max_size = 128M" > $PHP_INI_DIR/conf.d/00-max_filesize.ini
 
 # Configure Apache:
 RUN a2enmod rewrite headers expires \
