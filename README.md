@@ -26,7 +26,7 @@ The *-dev containers are intended for use in development environments only.  The
 To enable XDebug, set the `XDEBUG_ENABLE` environment variable. In most situations, this should be sufficient to allow remote debugging, but you may also find a need to change the `xdebug.remote_host` variable, which is set to `docker.host.internal` by default.
 
 ### Blackfire
-The Blackfire PHP probe is installed on all of the -dev boxes.  It is configured to connect to a Blackfire `agent` container running alongside at blackfire:8707. See the [Blackfire documentation](https://blackfire.io/docs/integrations/docker) for more information on setting this up.
+The Blackfire PHP probe is installed on all of the -dev boxes.  It is configured to connect to a Blackfire `agent` container running alongside at blackfire:8707.  See the [Blackfire documentation](https://blackfire.io/docs/integrations/docker) for more information on setting this up.
 
 Performance tuning
 ------------------
