@@ -143,3 +143,8 @@ RUN curl -fsSOL https://github.com/pantheon-systems/terminus/releases/download/$
 # Gulp-cli.
 RUN npm i --no-cache -g gulp-cli
 
+# ImageMagick
+RUN apt-get update \
+  && apt-get install -y imagemagick > /dev/null 2>&1 \
+  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
